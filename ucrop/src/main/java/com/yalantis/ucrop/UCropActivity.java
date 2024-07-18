@@ -469,10 +469,9 @@ public class UCropActivity extends AppCompatActivity {
         mCropAspectRatioViews.get(aspectRationSelectedByDefault).setSelected(true);
 
         for (ViewGroup cropAspectRatioView : mCropAspectRatioViews) {
-            cropAspectRatioView.setOnClickListener(new View.OnClickListener() {
+            // cropAspectRatioView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mGestureCropImageView.cancelAllAnimations();
                     mGestureCropImageView.zoomOutImage(mGestureCropImageView.getMinScale());
                     mGestureCropImageView.setTargetAspectRatio(
                             ((AspectRatioTextView) ((ViewGroup) v).getChildAt(0)).getAspectRatio(v.isSelected()));
@@ -483,7 +482,7 @@ public class UCropActivity extends AppCompatActivity {
                         }
                     }
                 }
-            });
+            // });
         }
     }
 
