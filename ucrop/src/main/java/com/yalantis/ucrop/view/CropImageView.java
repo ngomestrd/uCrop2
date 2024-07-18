@@ -246,13 +246,13 @@ public class CropImageView extends TransformImageView {
      * @param py         - scale center Y
      */
     public void postScale(float deltaScale, float px, float py) {
-        // if (deltaScale > 1 && getCurrentScale() * deltaScale <= getMaxScale()) {
-        // super.postScale(deltaScale, px, py);
-        // } else if (deltaScale < 1 && getCurrentScale() * deltaScale >= getMinScale())
-        // {
-        // super.postScale(deltaScale, px, py);
-        // }
-        super.postScale(deltaScale, px, py);
+        if (deltaScale > 1 && getCurrentScale() * deltaScale <= getMaxScale()) {
+            super.postScale(deltaScale, px, py);
+        } else if (deltaScale < 1 && getCurrentScale() * deltaScale >= getMinScale()) {
+            super.postScale(deltaScale, px, py);
+        } else if (deltaScale = 1) {
+            super.postScale(deltaScale, px, py);
+        }
     }
 
     /**
