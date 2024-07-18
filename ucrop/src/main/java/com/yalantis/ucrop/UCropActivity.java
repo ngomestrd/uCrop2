@@ -512,7 +512,7 @@ public class UCropActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     mGestureCropImageView.zoomOutImage(mGestureCropImageView.getMinScale());
                     mGestureCropImageView.setTargetAspectRatio(
-                            ((AspectRatioTextView) ((ViewGroup) v).getChildAt(0)).getAspectRatio(v));
+                            ((AspectRatioTextView) ((ViewGroup) v).getChildAt(0)).getAspectRatio(false));
                     mGestureCropImageView.setImageToWrapCropBounds();
                     if (!v.isSelected()) {
                         for (ViewGroup cropAspectRatioView : mCropAspectRatioViews) {
