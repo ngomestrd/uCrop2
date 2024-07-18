@@ -207,6 +207,15 @@ public class CropImageView extends TransformImageView {
     /**
      * This method scales image down for given value related to image center.
      */
+    public void zoomOutImage(float deltaScale, boolean nelson) {
+        if (nelson == true) {
+            postScale2(deltaScale, mCropRect.centerX(), mCropRect.centerY());
+        }
+    }
+
+    /**
+     * This method scales image down for given value related to image center.
+     */
     public void zoomOutImage(float deltaScale) {
         zoomOutImage(deltaScale, mCropRect.centerX(), mCropRect.centerY());
     }
@@ -250,9 +259,11 @@ public class CropImageView extends TransformImageView {
             super.postScale(deltaScale, px, py);
         } else if (deltaScale < 1 && getCurrentScale() * deltaScale >= getMinScale()) {
             super.postScale(deltaScale, px, py);
-        } else if (deltaScale == 1) {
-            super.postScale(deltaScale, px, py);
         }
+    }
+
+    public void postScale2(float deltaScale, float px, float py) {
+        super.postScale(deltaScale, px, py);
     }
 
     /**
