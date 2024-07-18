@@ -42,10 +42,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
@@ -521,22 +517,6 @@ public class UCropActivity extends AppCompatActivity {
                             cropAspectRatioView.setSelected(cropAspectRatioView == v);
                         }
                     }
-
-                    // Criar e exibir o modal dialog
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context); // Substitua 'context' pelo contexto
-                                                                                    // apropriado
-                    builder.setTitle("Título do Modal");
-                    builder.setMessage("Conteúdo do Modal");
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Aqui você pode adicionar a lógica a ser executada ao clicar no botão OK
-                            dialog.dismiss(); // Fecha o modal após o clique no botão OK
-                        }
-                    });
-                    // Criar e exibir o modal dialog
-                    AlertDialog alert = builder.create();
-                    alert.show();
                 }
             });
         }

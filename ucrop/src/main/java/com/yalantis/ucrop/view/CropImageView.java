@@ -28,8 +28,10 @@ import androidx.annotation.Nullable;
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
  * <p/>
- * This class adds crop feature, methods to draw crop guidelines, and keep image in correct state.
- * Also it extends parent class methods to add checks for scale; animating zoom in/out.
+ * This class adds crop feature, methods to draw crop guidelines, and keep image
+ * in correct state.
+ * Also it extends parent class methods to add checks for scale; animating zoom
+ * in/out.
  */
 public class CropImageView extends TransformImageView {
 
@@ -67,11 +69,12 @@ public class CropImageView extends TransformImageView {
     }
 
     /**
-     * Cancels all current animations and sets image to fill crop area (without animation).
+     * Cancels all current animations and sets image to fill crop area (without
+     * animation).
      * Then creates and executes {@link BitmapCropTask} with proper parameters.
      */
     public void cropAndSaveImage(@NonNull Bitmap.CompressFormat compressFormat, int compressQuality,
-                                 @Nullable BitmapCropCallback cropCallback) {
+            @Nullable BitmapCropCallback cropCallback) {
         cancelAllAnimations();
         setImageToWrapCropBounds(false);
 
@@ -110,7 +113,8 @@ public class CropImageView extends TransformImageView {
     }
 
     /**
-     * Updates current crop rectangle with given. Also recalculates image properties and position
+     * Updates current crop rectangle with given. Also recalculates image properties
+     * and position
      * to fit new crop rectangle.
      *
      * @param cropRect - new crop rectangle
@@ -125,10 +129,12 @@ public class CropImageView extends TransformImageView {
 
     /**
      * This method sets aspect ratio for crop bounds.
-     * If {@link #SOURCE_IMAGE_ASPECT_RATIO} value is passed - aspect ratio is calculated
+     * If {@link #SOURCE_IMAGE_ASPECT_RATIO} value is passed - aspect ratio is
+     * calculated
      * based on current image width and height.
      *
-     * @param targetAspectRatio - aspect ratio for image crop (e.g. 1.77(7) for 16:9)
+     * @param targetAspectRatio - aspect ratio for image crop (e.g. 1.77(7) for
+     *                          16:9)
      */
     public void setTargetAspectRatio(float targetAspectRatio) {
         final Drawable drawable = getDrawable();
@@ -189,7 +195,8 @@ public class CropImageView extends TransformImageView {
     }
 
     /**
-     * This method sets multiplier that is used to calculate max image scale from min image scale.
+     * This method sets multiplier that is used to calculate max image scale from
+     * min image scale.
      *
      * @param maxScaleMultiplier - (minScale * maxScaleMultiplier) = maxScale
      */
@@ -230,7 +237,8 @@ public class CropImageView extends TransformImageView {
     }
 
     /**
-     * This method changes image scale for given value related to point (px, py) but only if
+     * This method changes image scale for given value related to point (px, py) but
+     * only if
      * resulting scale is in min/max bounds.
      *
      * @param deltaScale - scale value
@@ -238,11 +246,13 @@ public class CropImageView extends TransformImageView {
      * @param py         - scale center Y
      */
     public void postScale(float deltaScale, float px, float py) {
-        if (deltaScale > 1 && getCurrentScale() * deltaScale <= getMaxScale()) {
-            super.postScale(deltaScale, px, py);
-        } else if (deltaScale < 1 && getCurrentScale() * deltaScale >= getMinScale()) {
-            super.postScale(deltaScale, px, py);
-        }
+        // if (deltaScale > 1 && getCurrentScale() * deltaScale <= getMaxScale()) {
+        // super.postScale(deltaScale, px, py);
+        // } else if (deltaScale < 1 && getCurrentScale() * deltaScale >= getMinScale())
+        // {
+        // super.postScale(deltaScale, px, py);
+        // }
+        super.postScale(deltaScale, px, py);
     }
 
     /**
@@ -267,12 +277,16 @@ public class CropImageView extends TransformImageView {
     }
 
     /**
-     * If image doesn't fill the crop bounds it must be translated and scaled properly to fill those.
+     * If image doesn't fill the crop bounds it must be translated and scaled
+     * properly to fill those.
      * <p/>
-     * Therefore this method calculates delta X, Y and scale values and passes them to the
+     * Therefore this method calculates delta X, Y and scale values and passes them
+     * to the
      * {@link WrapCropBoundsRunnable} which animates image.
-     * Scale value must be calculated only if image won't fill the crop bounds after it's translated to the
-     * crop bounds rectangle center. Using temporary variables this method checks this case.
+     * Scale value must be calculated only if image won't fill the crop bounds after
+     * it's translated to the
+     * crop bounds rectangle center. Using temporary variables this method checks
+     * this case.
      */
     public void setImageToWrapCropBounds(boolean animate) {
         if (mBitmapLaidOut && !isImageWrapCropBounds()) {
@@ -324,12 +338,14 @@ public class CropImageView extends TransformImageView {
     }
 
     /**
-     * First, un-rotate image and crop rectangles (make image rectangle axis-aligned).
+     * First, un-rotate image and crop rectangles (make image rectangle
+     * axis-aligned).
      * Second, calculate deltas between those rectangles sides.
      * Third, depending on delta (its sign) put them or zero inside an array.
      * Fourth, using Matrix, rotate back those points (indents).
      *
-     * @return - the float array of image indents (4 floats) - in this order [left, top, right, bottom]
+     * @return - the float array of image indents (4 floats) - in this order [left,
+     *         top, right, bottom]
      */
     private float[] calculateImageIndents() {
         mTempMatrix.reset();
@@ -363,7 +379,8 @@ public class CropImageView extends TransformImageView {
     }
 
     /**
-     * When image is laid out it must be centered properly to fit current crop bounds.
+     * When image is laid out it must be centered properly to fit current crop
+     * bounds.
      */
     @Override
     protected void onImageLaidOut() {
@@ -410,7 +427,8 @@ public class CropImageView extends TransformImageView {
     }
 
     /**
-     * This methods checks whether a rectangle that is represented as 4 corner points (8 floats)
+     * This methods checks whether a rectangle that is represented as 4 corner
+     * points (8 floats)
      * fills the crop bounds rectangle.
      *
      * @param imageCorners - corners of a rectangle
@@ -430,7 +448,8 @@ public class CropImageView extends TransformImageView {
     }
 
     /**
-     * This method changes image scale (animating zoom for given duration), related to given center (x,y).
+     * This method changes image scale (animating zoom for given duration), related
+     * to given center (x,y).
      *
      * @param scale      - target scale
      * @param centerX    - scale center X
@@ -458,7 +477,8 @@ public class CropImageView extends TransformImageView {
     }
 
     /**
-     * This method calculates image minimum and maximum scale values for current {@link #mCropRect}.
+     * This method calculates image minimum and maximum scale values for current
+     * {@link #mCropRect}.
      *
      * @param drawableWidth  - image width
      * @param drawableHeight - image height
@@ -502,8 +522,10 @@ public class CropImageView extends TransformImageView {
      */
     @SuppressWarnings("deprecation")
     protected void processStyledAttributes(@NonNull TypedArray a) {
-        float targetAspectRatioX = Math.abs(a.getFloat(R.styleable.ucrop_UCropView_ucrop_aspect_ratio_x, DEFAULT_ASPECT_RATIO));
-        float targetAspectRatioY = Math.abs(a.getFloat(R.styleable.ucrop_UCropView_ucrop_aspect_ratio_y, DEFAULT_ASPECT_RATIO));
+        float targetAspectRatioX = Math
+                .abs(a.getFloat(R.styleable.ucrop_UCropView_ucrop_aspect_ratio_x, DEFAULT_ASPECT_RATIO));
+        float targetAspectRatioY = Math
+                .abs(a.getFloat(R.styleable.ucrop_UCropView_ucrop_aspect_ratio_y, DEFAULT_ASPECT_RATIO));
 
         if (targetAspectRatioX == SOURCE_IMAGE_ASPECT_RATIO || targetAspectRatioY == SOURCE_IMAGE_ASPECT_RATIO) {
             mTargetAspectRatio = SOURCE_IMAGE_ASPECT_RATIO;
@@ -513,10 +535,12 @@ public class CropImageView extends TransformImageView {
     }
 
     /**
-     * This Runnable is used to animate an image so it fills the crop bounds entirely.
+     * This Runnable is used to animate an image so it fills the crop bounds
+     * entirely.
      * Given values are interpolated during the animation time.
      * Runnable can be terminated either vie {@link #cancelAllAnimations()} method
-     * or when certain conditions inside {@link WrapCropBoundsRunnable#run()} method are triggered.
+     * or when certain conditions inside {@link WrapCropBoundsRunnable#run()} method
+     * are triggered.
      */
     private static class WrapCropBoundsRunnable implements Runnable {
 
@@ -530,11 +554,11 @@ public class CropImageView extends TransformImageView {
         private final boolean mWillBeImageInBoundsAfterTranslate;
 
         public WrapCropBoundsRunnable(CropImageView cropImageView,
-                                      long durationMs,
-                                      float oldX, float oldY,
-                                      float centerDiffX, float centerDiffY,
-                                      float oldScale, float deltaScale,
-                                      boolean willBeImageInBoundsAfterTranslate) {
+                long durationMs,
+                float oldX, float oldY,
+                float centerDiffX, float centerDiffY,
+                float oldScale, float deltaScale,
+                boolean willBeImageInBoundsAfterTranslate) {
 
             mCropImageView = new WeakReference<>(cropImageView);
 
@@ -564,9 +588,11 @@ public class CropImageView extends TransformImageView {
             float newScale = CubicEasing.easeInOut(currentMs, 0, mDeltaScale, mDurationMs);
 
             if (currentMs < mDurationMs) {
-                cropImageView.postTranslate(newX - (cropImageView.mCurrentImageCenter[0] - mOldX), newY - (cropImageView.mCurrentImageCenter[1] - mOldY));
+                cropImageView.postTranslate(newX - (cropImageView.mCurrentImageCenter[0] - mOldX),
+                        newY - (cropImageView.mCurrentImageCenter[1] - mOldY));
                 if (!mWillBeImageInBoundsAfterTranslate) {
-                    cropImageView.zoomInImage(mOldScale + newScale, cropImageView.mCropRect.centerX(), cropImageView.mCropRect.centerY());
+                    cropImageView.zoomInImage(mOldScale + newScale, cropImageView.mCropRect.centerX(),
+                            cropImageView.mCropRect.centerY());
                 }
                 if (!cropImageView.isImageWrapCropBounds()) {
                     cropImageView.post(this);
@@ -579,7 +605,8 @@ public class CropImageView extends TransformImageView {
      * This Runnable is used to animate an image zoom.
      * Given values are interpolated during the animation time.
      * Runnable can be terminated either vie {@link #cancelAllAnimations()} method
-     * or when certain conditions inside {@link ZoomImageToPosition#run()} method are triggered.
+     * or when certain conditions inside {@link ZoomImageToPosition#run()} method
+     * are triggered.
      */
     private static class ZoomImageToPosition implements Runnable {
 
@@ -592,9 +619,9 @@ public class CropImageView extends TransformImageView {
         private final float mDestY;
 
         public ZoomImageToPosition(CropImageView cropImageView,
-                                   long durationMs,
-                                   float oldScale, float deltaScale,
-                                   float destX, float destY) {
+                long durationMs,
+                float oldScale, float deltaScale,
+                float destX, float destY) {
 
             mCropImageView = new WeakReference<>(cropImageView);
 
