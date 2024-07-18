@@ -41,6 +41,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import android.app.AlertDialog;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
@@ -491,18 +492,16 @@ public class UCropActivity extends AppCompatActivity {
         AspectRatioTextView aspectRatioTextView;
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
         lp.weight = 1;
-        // for (AspectRatio aspectRatio : aspectRatioList) {
-        // wrapperAspectRatio = (FrameLayout)
-        // getLayoutInflater().inflate(R.layout.ucrop_aspect_ratio, null);
-        // wrapperAspectRatio.setLayoutParams(lp);
-        // aspectRatioTextView = ((AspectRatioTextView)
-        // wrapperAspectRatio.getChildAt(0));
-        // aspectRatioTextView.setActiveColor(mActiveControlsWidgetColor);
-        // aspectRatioTextView.setAspectRatio(aspectRatio);
+        for (AspectRatio aspectRatio : aspectRatioList) {
+            wrapperAspectRatio = (FrameLayout) getLayoutInflater().inflate(R.layout.ucrop_aspect_ratio, null);
+            wrapperAspectRatio.setLayoutParams(lp);
+            aspectRatioTextView = ((AspectRatioTextView) wrapperAspectRatio.getChildAt(0));
+            aspectRatioTextView.setActiveColor(mActiveControlsWidgetColor);
+            aspectRatioTextView.setAspectRatio(aspectRatio);
 
-        // wrapperAspectRatioList.addView(wrapperAspectRatio);
-        // mCropAspectRatioViews.add(wrapperAspectRatio);
-        // }
+            wrapperAspectRatioList.addView(wrapperAspectRatio);
+            mCropAspectRatioViews.add(wrapperAspectRatio);
+        }
 
         mCropAspectRatioViews.get(aspectRationSelectedByDefault).setSelected(true);
 
@@ -512,13 +511,29 @@ public class UCropActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     mGestureCropImageView.zoomOutImage(mGestureCropImageView.getMinScale());
                     mGestureCropImageView.setTargetAspectRatio(
-                            ((AspectRatioTextView) ((ViewGroup) v).getChildAt(0)).getAspectRatio(false));
+                            ((AspectRatioTextView) ((ViewGroup) v).getChildAt(0)).getAspectRatio(v.isSelected()));
                     mGestureCropImageView.setImageToWrapCropBounds();
                     if (!v.isSelected()) {
                         for (ViewGroup cropAspectRatioView : mCropAspectRatioViews) {
                             cropAspectRatioView.setSelected(cropAspectRatioView == v);
                         }
                     }
+
+                    // Criar e exibir o modal dialog
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context); // Substitua 'context' pelo contexto
+                                                                                    // apropriado
+                    builder.setTitle("Título do Modal");
+                    builder.setMessage("Conteúdo do Modal");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Aqui você pode adicionar a lógica a ser executada ao clicar no botão OK
+                            dialog.dismiss(); // Fecha o modal após o clique no botão OK
+                        }
+                    });
+                    // Criar e exibir o modal dialog
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
             });
         }
