@@ -472,20 +472,15 @@ public class UCropActivity extends AppCompatActivity {
             cropAspectRatioView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // AspectRatioTextView selectedAspectRatioTextView = (AspectRatioTextView) ((ViewGroup) v).getChildAt(0);
+                    mGestureCropImageView.zoomOutImage(mGestureCropImageView.getMinScale());
                     mGestureCropImageView.setTargetAspectRatio(
                             ((AspectRatioTextView) ((ViewGroup) v).getChildAt(0)).getAspectRatio(v.isSelected()));
-                    mGestureCropImageView.zoomOutImage(mGestureCropImageView.getMinScale());
                     mGestureCropImageView.setImageToWrapCropBounds();
                     if (!v.isSelected()) {
                         for (ViewGroup cropAspectRatioView : mCropAspectRatioViews) {
                             cropAspectRatioView.setSelected(cropAspectRatioView == v);
                         }
                     }
-                // Verifica se o rótulo "label_original" foi selecionado
-                // if (selectedAspectRatioTextView.getText().toString().equals(getString(R.string.ucrop_label_original).toUpperCase())) {
-                //     mGestureCropImageView.zoomOutImage(mGestureCropImageView.getMinScale());
-                // }
                 }
             });
         }
