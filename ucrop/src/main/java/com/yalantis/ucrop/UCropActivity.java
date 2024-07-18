@@ -442,11 +442,11 @@ public class UCropActivity extends AppCompatActivity {
 
             aspectRatioList = new ArrayList<>();
             aspectRatioList.add(new AspectRatio(null, 1, 1));
-            aspectRatioList.add(new AspectRatio(null, 10, 10));
+            aspectRatioList.add(new AspectRatio(null, 3, 4));
             aspectRatioList.add(new AspectRatio(getString(R.string.ucrop_label_original).toUpperCase(),
                     CropImageView.SOURCE_IMAGE_ASPECT_RATIO, CropImageView.SOURCE_IMAGE_ASPECT_RATIO));
-            // aspectRatioList.add(new AspectRatio(null, 3, 2));
-            // aspectRatioList.add(new AspectRatio(null, 16, 9));
+            aspectRatioList.add(new AspectRatio(null, 3, 2));
+            aspectRatioList.add(new AspectRatio(null, 16, 9));
         }
 
         LinearLayout wrapperAspectRatioList = findViewById(R.id.layout_aspect_ratio);
@@ -475,12 +475,16 @@ public class UCropActivity extends AppCompatActivity {
                     mGestureCropImageView.setTargetAspectRatio(
                             ((AspectRatioTextView) ((ViewGroup) v).getChildAt(0)).getAspectRatio(v.isSelected()));
                     // mGestureCropImageView.zoomOutImage(mGestureCropImageView.getCurrentScale())
-                    mGestureCropImageView.zoomOutImage(mGestureCropImageView.getCurrentScale());
+                    mGestureCropImageView.zoomOutImage(mGestureCropImageView.getMinScale());
                     mGestureCropImageView.setImageToWrapCropBounds();
                     if (!v.isSelected()) {
                         for (ViewGroup cropAspectRatioView : mCropAspectRatioViews) {
                             cropAspectRatioView.setSelected(cropAspectRatioView == v);
                         }
+                    }
+                    // Verifica se o rótulo "label_original" foi selecionado
+                    if (selectedAspectRatioTextView.getText().toString().equals(getString(R.string.ucrop_label_original).toUpperCase())) {
+                        mGestureCropImageView.zoomOutImage(mGestureCropImageView.getMinScale());
                     }
                 }
             });

@@ -325,11 +325,11 @@ public class UCropFragment extends Fragment {
 
             aspectRatioList = new ArrayList<>();
             aspectRatioList.add(new AspectRatio(null, 1, 1));
-            aspectRatioList.add(new AspectRatio(null, 3, 11));
+            aspectRatioList.add(new AspectRatio(null, 3, 4));
             aspectRatioList.add(new AspectRatio(getString(R.string.ucrop_label_original).toUpperCase(),
                     CropImageView.SOURCE_IMAGE_ASPECT_RATIO, CropImageView.SOURCE_IMAGE_ASPECT_RATIO));
-            // aspectRatioList.add(new AspectRatio(null, 3, 2));
-            // aspectRatioList.add(new AspectRatio(null, 16, 9));
+            aspectRatioList.add(new AspectRatio(null, 3, 2));
+            aspectRatioList.add(new AspectRatio(null, 16, 9));
         }
 
         LinearLayout wrapperAspectRatioList = view.findViewById(R.id.layout_aspect_ratio);
@@ -357,7 +357,6 @@ public class UCropFragment extends Fragment {
                 public void onClick(View v) {
                     mGestureCropImageView.setTargetAspectRatio(
                             ((AspectRatioTextView) ((ViewGroup) v).getChildAt(0)).getAspectRatio(v.isSelected()));
-                    mGestureCropImageView.zoomOutImage(mGestureCropImageView.getCurrentScale());
                     mGestureCropImageView.setImageToWrapCropBounds();
                     if (!v.isSelected()) {
                         for (ViewGroup cropAspectRatioView : mCropAspectRatioViews) {
