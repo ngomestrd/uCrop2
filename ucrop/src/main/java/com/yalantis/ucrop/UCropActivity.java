@@ -512,8 +512,10 @@ public class UCropActivity extends AppCompatActivity {
                     mGestureCropImageView.setTargetAspectRatio(
                             ((AspectRatioTextView) ((ViewGroup) v).getChildAt(0)).getAspectRatio(v.isSelected()));
                     mGestureCropImageView.setImageToWrapCropBounds();
-                    for (ViewGroup cropAspectRatioView : mCropAspectRatioViews) {
-                        cropAspectRatioView.setSelected(cropAspectRatioView == v);
+                    if (!v.isSelected()) {
+                        for (ViewGroup cropAspectRatioView : mCropAspectRatioViews) {
+                            cropAspectRatioView.setSelected(cropAspectRatioView == v);
+                        }
                     }
                 }
             });
