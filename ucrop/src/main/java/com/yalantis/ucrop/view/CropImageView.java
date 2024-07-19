@@ -206,6 +206,7 @@ public class CropImageView extends TransformImageView {
 
     /**
      * This method scales image down for given value related to image center.
+     * executes without conditions as the original zoomOutImage() below
      */
     public void customZoomOut(float deltaScale) {
         super.postScale(deltaScale, mCropRect.centerX(), mCropRect.centerY());
